@@ -1,0 +1,12 @@
+*
+!private/
+!public/
+!.gitignore
+
+
+# ignore everything in storage
+/storage/*
+
+# except public folder (this will allow Git to track product images)
+!/storage/app/public
+!/storage/app/public/*
