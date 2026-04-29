@@ -9,7 +9,12 @@ product manage page
 
 
    <div class="container mt-4">
-    <h2 class="mb-3">All Products</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">All Products</h2>
+        <a href="{{ route('admin.product.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Add Product
+        </a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -44,11 +49,12 @@ product manage page
                 <td>{{ $product->product_name }}</td>
                 <td>{{ $product->seller->name ?? 'N/A' }}</td>
                 <td>{{ $product->store->store_name ?? 'N/A' }}</td>
-                <td>{{ $product->category->category_name ?? '' }} > {{ $product->subcategory->name ?? '' }}</td>
+                <td>{{ $product->category->category_name ?? '' }} > {{ $product->subcategory->subcategory_name ?? '' }}</td>
                 <td>${{ $product->regular_price }}</td>
                 <td>{{ $product->stock_quantity }}</td>
                 <td>{{ $product->status ?? 'Pending' }}</td>
                 <td>
+                    <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
                     <form action="{{ route('admin.product.destroy',$product->id) }}" method="POST" onsubmit="return confirm('Delete this product?')">
                         @csrf
                         @method('DELETE')
@@ -65,4 +71,3 @@ product manage page
     </table>
 </div>
 @endsection
-

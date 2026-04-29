@@ -46,9 +46,9 @@ Route::middleware(['auth', 'verified','rolemanager:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
 
 Route::controller(AdminMainController::class)->group(function () {
-    Route::get('/admin/dashboard','index')->name('admin');
+    Route::get('/dashboard','index')->name('admin');
     Route::get('/seeting','seeting')->name('admin.seeting');
-     Route::post('/admin/setting/update','homepage_settingupdate')->name('home.setting.update');
+     Route::post('/setting/update','homepage_settingupdate')->name('home.setting.update');
     Route::get('/manage/users','manage_user')->name('admin.manage.user');
     Route::get('/manage/stores','manage_stores')->name('admin.manage.store');
     Route::get('/cart/history','cart_history')->name('admin.cart.history');
@@ -78,7 +78,11 @@ Route::controller(SubcategoryController::class)->group(function () {
 });
 
 Route::controller(ProductController::class)->group(function () {
+    Route::get('/product/create','create')->name('admin.product.create');
+    Route::post('/product/store','store')->name('admin.product.store');
     Route::get('/product/manage','index')->name('product.manage');
+    Route::get('/product/edit/{id}','edit')->name('admin.product.edit');
+    Route::put('/product/update/{id}','update')->name('admin.product.update');
     Route::get('/product/review/manage','review_manage')->name('product.manageproductreview');
      Route::delete('/product/delete/{id}','destroy')->name('admin.product.destroy');
 });

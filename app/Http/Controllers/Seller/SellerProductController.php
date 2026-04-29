@@ -8,6 +8,7 @@ use App\Models\Productimage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Store;
+use Illuminate\Support\Str;
 
 class SellerProductController extends Controller
 {
@@ -25,7 +26,7 @@ class SellerProductController extends Controller
     public function store(Request $request){
         $request->validate([
              'product_name' => 'required|string|max:255',
-        'description' => 'nullable|string',
+        'description' => 'required|string',
       
         'sku' => 'nullable|string|max:100|unique:products,sku',
         'store_id' => 'required|exists:stores,id',
@@ -58,10 +59,13 @@ if ($request->discount_percent && $request->discount_percent > 0) {
     
   
 
+        $sku = $request->sku ?: strtoupper(Str::random(8));
+        $slug = $request->slug ?: Str::slug($request->product_name).'-'.Str::lower(Str::random(6));
+
         $product = Product::create([
             'product_name' => $request->product_name,
              'description' => $request->description,
-               'sku' => $request->sku,
+               'sku' => $sku,
                'seller_id' => Auth::id(),
 
                 'store_id' => $request->store_id,  
@@ -72,11 +76,12 @@ if ($request->discount_percent && $request->discount_percent > 0) {
             'discounted_price' => $discountedPrice,
             'tax_rate' => $request->tax_rate,
             'stock_quantity' => $request->stock_quantity,
-            'slug' => $request->slug,
+            'slug' => $slug,
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'category_id' => $request->category_id,
              'subcategory_id' => $request->subcategory_id,
+             'status' => 'Draft',
 
 
         ]);

@@ -81,8 +81,8 @@ product manage
                     <td>{{ $product->slug }}</td>
                     <td>{{ $product->meta_title }}</td>
                     <td>{{ Str::limit($product->meta_description, 25) }}</td>
-                    <td>{{ $product->category->name ?? 'N/A' }}</td>
-                    <td>{{ $product->subcategory->name ?? 'N/A' }}</td>
+                    <td>{{ $product->category->category_name ?? 'N/A' }}</td>
+                    <td>{{ $product->subcategory->subcategory_name ?? 'N/A' }}</td>
                     <td class="text-center">
                         <a href="#" class="btn btn-warning btn-sm mb-1">Edit</a>
 

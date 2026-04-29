@@ -68,7 +68,7 @@ class HomePageController extends Controller
 
         $order = new Order();
         $order->name = $request->name;
-        $order->phone = $request->phone;
+        $order->Phone = $request->phone;
         $order->email = $request->email;
         $order->address = $request->address ?? null;
         $order->user_id = Auth::id();

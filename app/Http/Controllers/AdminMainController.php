@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HomePageSetting;
 use Illuminate\Http\Request;
-use App\Models\product;
+use App\Models\Product;
 use App\Models\Order;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -14,19 +14,22 @@ class AdminMainController extends Controller
 {
     public  function index(){
 
-$total_product = product::all()->count();
-$total_order = Order::all()->count();
-$total_user = User::all()->count();
-$order = Order:: all();
-$total_revenue = 0;
-foreach($order as $order){
-    $total_revenue = $total_revenue + $order->total;
-}
-$total_deleverd = Order::where('status','=','completed')->get()->count();
-$total_pending = Order::where('status','=','pending')->get()->count();
-$total_cancelled = Order::where('status','=','Cancelled')->get()->count();
+$total_product = Product::count();
+$total_order = Order::count();
+$total_user = User::count();
+$total_revenue = Order::sum('total');
+$total_deleverd = Order::where('status','=','completed')->count();
+$total_pending = Order::where('status','=','pending')->count();
+$total_cancelled = Order::where('status','=','cancelled')->count();
+$today_orders = Order::whereDate('created_at', today())->count();
+$today_revenue = Order::whereDate('created_at', today())->sum('total');
+$paid_orders = Order::where('payment_status','=','paid')->count();
+$recent_orders = Order::latest()->take(5)->get();
+$recent_products = Product::with('images')->latest()->take(4)->get();
+$completed_percent = $total_order > 0 ? round(($total_deleverd / $total_order) * 100) : 0;
+$pending_percent = $total_order > 0 ? round(($total_pending / $total_order) * 100) : 0;
          
-        return view('admin.admin',compact('total_product','total_order','total_user','total_revenue','total_deleverd','total_pending','total_cancelled'));
+        return view('admin.admin',compact('total_product','total_order','total_user','total_revenue','total_deleverd','total_pending','total_cancelled','today_orders','today_revenue','paid_orders','recent_orders','recent_products','completed_percent','pending_percent'));
     }
 public  function seeting(){
     $products = Product::all();

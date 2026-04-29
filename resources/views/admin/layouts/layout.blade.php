@@ -69,6 +69,12 @@
                     </li>
 
                     <li class="sidebar-header">Product</li>
+                    <li class="sidebar-item {{ request()->routeIs('admin.product.create') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('admin.product.create') }}">
+                            <i class="align-middle" data-feather="plus"></i>
+                            <span class="align-middle">Product Create</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item {{ request()->routeIs('product.manage') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('product.manage') }}">
                             <i class="align-middle" data-feather="shopping-bag"></i>

@@ -11,4 +11,9 @@ class Store extends Model
       'store_name', 'slug', 'details','user_id'  
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
