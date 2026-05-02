@@ -230,8 +230,11 @@ Admin Dashboard
     <div class="row g-3">
         <div class="col-xl-4">
             <div class="panel-card h-100">
-                <div class="p-3 border-bottom">
-                    <h2 class="panel-title">Order Health</h2>
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="panel-title">Order Health</h2>
+                        <small class="text-muted">Current delivery pipeline</small>
+                    </div>
                 </div>
                 <div class="p-3 status-row">
                     <div>

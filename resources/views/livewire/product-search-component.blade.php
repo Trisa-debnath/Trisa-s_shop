@@ -8,7 +8,7 @@
             type="search" 
             placeholder="Search products or categories..." 
             aria-label="Search"
-            wire:model="query"
+            wire:model.live.debounce.500ms="query"
         >
         <button class="btn btn-primary" type="submit">
             <i class="fas fa-search"></i> Search
@@ -16,7 +16,7 @@
     </form>
 
     <!-- 🧾 Search results -->
-    @if(!empty($products))
+    @if($hasSearched)
        
             <h5 class="mb-3 text-center">🔍 Search Results</h5>
            
@@ -25,7 +25,7 @@
                    <div class="col">
                     
                         <div class="card shadow-sm h-100 w-100">
- <img src="{{ asset('storage/'.($product->images[0]?->img_path ?? 'default.png')) }}" 
+ <img src="{{ $product->images->first() ? asset('storage/' . $product->images->first()->img_path) : asset('home_asset/img/default.png') }}" 
                             class="card-img-top" 
                             style="height: 190px; object-fit: cover;"
                             alt="{{ $product->product_name }}" >
