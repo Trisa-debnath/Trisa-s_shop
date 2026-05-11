@@ -1,83 +1,80 @@
 @extends('seller.layouts.layout')
+
 @section('seller_page_title')
-store manage
+Manage Stores
 @endsection
+
 @section('seller_layout')
-
-        <div class="message">
-    @if ($errors->any())
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="card">
+    <div class="card-header d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-center">
+        <div>
+            <h5 class="card-title mb-1">Manage Stores</h5>
+            <p class="text-muted mb-0">Create, update, and delete stores owned by the logged-in seller.</p>
         </div>
-    @endif
-</div>
+        <a href="{{ route('vendor.store') }}" class="btn btn-primary">Create Store</a>
+    </div>
 
-        <!--  Form -->
-        <div class="row">
-						<div class="col-12 col-lg-6">
-							<div class="card">
-								<div class="card-header primary">
-									<h5 class="card-title mb-4 ">Manage store</h5>
-
-                                    
-       @if(session('success'))
-      <div class="alert alert-success">
-       <h3 class="mb-4">{{session('success')}}</h3>
-       </div>
+    <div class="card-body">
+        @if ($errors->any())
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
-               
-        <!-- Table -->
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Store Name</th>
-                    <th>Slug</th>
-                    <th>Details</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($stores as $store)
+
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+                <thead>
                     <tr>
-                        <td>{{ $store->id }}</td>
-                        <td>{{ $store->store_name}}</td>
-                        <td>{{ $store->slug}}</td>
-                        <td>{{ $store->details}}</td>
-
-                        <td>
-                            <a href="{{ route('edit.store', $store->id)}}" method="GET"  class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('update.store', $store->id)}}" method="POST" style="display:inline;"></td>
-                           
-
-
-                    @csrf
-                        <td>   </form>
-
-                   
-                             <form action="{{ route('delete.store', $store->id) }}" method="POST" style="display:inline;">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-</form>
-
-                          
-                        </td>
+                        <th style="width: 80px;">ID</th>
+                        <th>Store Name</th>
+                        <th>Slug</th>
+                        <th>Details</th>
+                        <th style="width: 180px;">Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    
-
-
-				</div>
-							</div>
-
-
+                </thead>
+                <tbody>
+                    @forelse ($stores as $store)
+                        <tr>
+                            <td>{{ $store->id }}</td>
+                            <td>{{ $store->store_name }}</td>
+                            <td>{{ $store->slug }}</td>
+                            <td>{{ Str::limit($store->details, 80) }}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('edit.store', $store->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('delete.store', $store->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button
+                                            type="submit"
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this store?')"
+                                        >
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                No stores found. Create a store to start adding vendor products.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection

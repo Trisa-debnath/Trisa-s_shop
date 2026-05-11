@@ -5,73 +5,71 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SellerStoreController extends Controller
 {
-    public  function index(){
+    public function index()
+    {
         return view('seller.store.create');
     }
-       public  function manage(){
- $userid = Auth::user()->id;
-  $stores = Store::where('user_id',$userid)->get(); 
-        return view('seller.store.manage' ,compact('stores'));
+
+    public function manage()
+    {
+        $stores = Store::where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
+        return view('seller.store.manage', compact('stores'));
     }
 
-       public function store(Request $request)
+    public function store(Request $request)
     {
-            $request->validate(['store_name'=>'required',
-            'slug'=>'required',
-            'details'=>'required'   
+        $validated = $request->validate([
+            'store_name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', 'unique:stores,slug'],
+            'details' => ['required', 'string'],
         ]);
-      Store::create([
-            'store_name' => $request->store_name,
-            'slug' => $request->slug,
-            'details' => $request->details,
-            'user_id' => Auth::user()->id 
+
+        Store::create([
+            'store_name' => $validated['store_name'],
+            'slug' => $validated['slug'],
+            'details' => $validated['details'],
+            'user_id' => Auth::id(),
         ]);
-       return redirect()->route('vendor.store')->with('message',"store added Successfully.");
+
+        return redirect()->route('vendor.store.manage')->with('success', 'Store added successfully.');
     }
 
 
     public function editstore($id)
     {
-        $editstor = Store::find($id);
+        $editstor = Store::where('user_id', Auth::id())->findOrFail($id);
+
         return view('seller.store.edit', compact('editstor'));
     }
 
-      public function deletestore($id)
+    public function deletestore($id)
     {
-        $storedelete= Store::find ($id);
-      $storedelete -> delete();
+        $storedelete = Store::where('user_id', Auth::id())->findOrFail($id);
+        $storedelete->delete();
 
-    return redirect()->route('vendor.store.manage')->with('success', 'Store Deleted successfully.');
-
-       
+        return redirect()->route('vendor.store.manage')->with('success', 'Store deleted successfully.');
     }
      
-   public function upstore(Request $request, $id)
+    public function upstore(Request $request, $id)
     {
-        $validate_data= $request->validate([
-            'store_name' => 'required',
-            'slug'=>'required',
-            'details'=>'required'   
+        $upstore = Store::where('user_id', Auth::id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'store_name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('stores', 'slug')->ignore($upstore->id)],
+            'details' => ['required', 'string'],
         ]);
 
-        $upstore = Store::find($id);
+        $upstore->update($validated);
 
-        if ($validate_data['store_name'] == $upstore->store_name) {
-        return redirect()->back()
-            ->withErrors(['store_name' => 'You did not change the store name.']);
-    } else {
-        $upstore->store_name = $validate_data['store_name'];
-        $upstore->save();
         return redirect()->route('vendor.store.manage')
-            ->with('success', 'store updated successfully.');
+            ->with('success', 'Store updated successfully.');
     }
-
-
-    }
-
-
-
 }
