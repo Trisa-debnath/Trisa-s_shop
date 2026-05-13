@@ -8,7 +8,7 @@ This is a Laravel based multi-vendor e-commerce web application. The project inc
 | --- | --- |
 | GitHub Profile | `https://github.com/Trisa-debnath` |
 | Project Repository | `https://github.com/Trisa-debnath/Trisa-s_shop` |
-| Video Demo | `Video demo link will be added here` |
+| Video Demo | `https://drive.google.com/drive/folders/1ljScV0nsutvM3ZnjDWVZURHuQcj42GgN?usp=sharing` |
 | LinkedIn | `https://www.linkedin.com/in/trisa-debnath-147249361` |
 | Email | `trisha123nath321@gmail.com` |
 
@@ -19,6 +19,16 @@ This project can be used to run an online marketplace where:
 - Customers can browse products, search products, view product details, add items to cart, place orders, and submit reviews.
 - Sellers/vendors can create stores, add products, manage their own products, and view order history.
 - Admin can manage categories, subcategories, products, orders, discounts, product attributes, homepage settings, and reviews.
+
+## Base Code Reference
+
+The base code for this project was taken from my GitHub repository:
+
+```text
+https://github.com/Trisa-debnath/e-commerce
+```
+
+I customized and extended this base project to build the current Laravel multi-vendor e-commerce application.
 
 ## My Contribution
 
@@ -341,72 +351,9 @@ http://127.0.0.1:8000
 php artisan test
 ```
 
-## Video Demo Guide
+1.  a folder named `docs/screenshots` in the project root.
 
-The project video link can be added in the `Portfolio Links` section after recording.
-
-Recommended upload options:
-
-- YouTube unlisted video.
-- Google Drive video with public view permission.
-- LinkedIn project post.
-
-Recommended video length:
-
-- Best: 3 to 5 minutes.
-- Maximum: 7 minutes.
-- Keep the demo focused on the real features already implemented in this project.
-
-### What To Show In The Video
-
-1. Start with the project name: Trisa's Shop.
-2. Show the home page, product slider, discounted products, category products, and product details page.
-3. Show product search and add-to-cart flow.
-4. Show checkout and payment options: Cash on Delivery, bKash, Nagad, and Stripe card payment.
-5. Login as vendor and show vendor dashboard, store management, product create/manage, and order history page.
-6. Login as admin and show dashboard, category/subcategory, product, discount, order, review, homepage setting, and PDF download features.
-7. Briefly show the code structure: routes, controllers, models, migrations, Livewire components, and Blade views.
-8. End by explaining what you learned and what can be improved next.
-
-### Demo Video Script
-
-```text
-Assalamu Alaikum, this is my Laravel multi-vendor e-commerce project named Trisa's Shop.
-
-In this project, I built role based panels for admin, vendor, and customer.
-Customers can browse products, search products, view product details, add products to cart, and place orders.
-
-The checkout system supports Cash on Delivery, bKash, Nagad, and Stripe card payment.
-After placing an order, the order information is stored with payment status and transaction ID.
-
-For vendors, I built store management and product upload features.
-Vendors can create stores, add products, upload product images, and view the order history page.
-
-For admin, I built a dashboard with product, order, user, revenue, pending order, completed order, and paid order statistics.
-Admin can manage categories, subcategories, products, discounts, product attributes, orders, homepage settings, and product reviews.
-Admin can approve or reject customer reviews and download order details as PDF.
-
-Technically, I used Laravel 12, Laravel Breeze, Livewire, Blade, Tailwind CSS, MySQL, Stripe SDK, and DomPDF.
-This project helped me practice real-world Laravel features like authentication, role based authorization, CRUD, file upload, database relationships, session cart, payment integration, and PDF generation.
-
-Thank you for watching my project demo.
-```
-
-### Tips For A Professional Video
-
-- Record in 1080p if possible.
-- Use a clear microphone or quiet room.
-- Keep browser zoom around 90% or 100%.
-- Prepare sample products, categories, users, and orders before recording.
-- Do not show private `.env` values, API secrets, database passwords, or Stripe secret key.
-- Keep the video smooth: login accounts should already be ready.
-- Speak slowly and explain what problem each feature solves.
-
-## How To Add Screenshots In README
-
-1. Create a folder named `docs/screenshots` in the project root.
-2. Put project screenshots inside that folder.
-3. Use simple file names without spaces, for example:
+2.  simple file names 
    - `home-page.png`
    - `product-details.png`
    - `cart-page.png`
@@ -414,13 +361,13 @@ Thank you for watching my project demo.
    - `admin-dashboard.png`
    - `seller-dashboard.png`
    - `customer-dashboard.png`
-4. Add the screenshot in README like this:
+4. Add some screenshot here:
 
 ```md
 ![Home Page](docs/screenshots/user-home.png)
 ```
 
-If the image does not show on GitHub, check that the file name and path are exactly the same.
+
 
 ## Project Screenshots
 
@@ -429,10 +376,6 @@ Project screenshots are stored in `docs/screenshots/`.
 ### Home Page
 
 ![Home Page](docs/screenshots/user-home.png)
-
-### Home Slider
-
-![Home Slider](docs/screenshots/user-slide.png)
 
 ### Discount Products
 
@@ -494,66 +437,14 @@ Project screenshots are stored in `docs/screenshots/`.
 
 ![Seller Dashboard](docs/screenshots/seller-dashboard.png)
 
-## Suggested Screenshots To Take
 
-- Home page
-- Home slider section
-- Discount product section
-- Category product page
-- Product details page
-- Cart/add to cart message
-- Checkout page
-- bKash, Nagad, and card payment sections
-- Order success page
-- Login page
-- Register page
-- Admin dashboard
-- Admin category manage page
-- Admin product manage page
-- Admin discount manage page
-- Admin order history page
-- Admin review manage page
-- Admin homepage setting page
-- Seller dashboard
-- Seller store manage page
-- Seller product manage page
-- Customer panel pages
 
-## Interview Preparation Notes
 
-Be ready to explain these parts in an interview:
-
-- How role based access works using the `rolemanager` middleware.
-- How admin, vendor, and customer routes are separated.
-- How product image upload works with Laravel storage.
-- How cart data is stored in session.
-- How checkout creates orders and order items.
-- How Stripe payment is handled.
-- How bKash/Nagad transaction information is stored.
-- How reviews are submitted and approved/rejected by admin.
-- How dashboard statistics are calculated.
-- How database relationships work between users, stores, products, orders, order items, categories, subcategories, images, and reviews.
-
-## Professional Checklist Before Sharing
-
-- GitHub profile link added.
-- Project repository link added.
-- LinkedIn profile link added.
-- Email address added.
-- Video demo link will be added after recording.
-- Project screenshots should be added in `docs/screenshots`.
-- Demo accounts should be created and tested before sharing.
-- Private API keys and passwords must stay inside `.env` only.
-- `.env` is already listed in `.gitignore`.
-- Migration should run successfully on a fresh database.
-- Tests should be checked with `php artisan test` when needed.
-- README formatting should be reviewed before final submission.
 
 ## Useful Notes
 
 - Product images are stored in Laravel public storage, so `php artisan storage:link` is required.
 - Admin, vendor, and customer access depends on the `role` value in the `users` table.
-- Stripe payment requires valid `STRIPE_KEY` and `STRIPE_SECRET` values.
 - bKash and Nagad payment numbers are read from `.env`.
 - Product reviews are submitted first, then admin can approve or reject them.
 
